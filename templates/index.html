@@ -85,7 +85,8 @@
                     <input type="hidden" name="output_data" value="{{ result or '' }}" />
                     <button type="submit">Save Recipe</button>
                 </form>
-                <a href="{{ url_for('history') }}">View Saved Recipes</a>
+                <a href="{{ url_for('history') }}">View Saved Recipes</a><br/>
+                <a href="{{ url_for('data_analysis') }}">Data Visualization</a>
                 {% endif %}
             </section>
             <section id="input-output-panel">
