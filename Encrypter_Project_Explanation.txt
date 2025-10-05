@@ -1,0 +1,32 @@
+Encrypter Project Explanation
+=============================
+
+This project is a Python-based web application named "Encrypter," designed as a clone of CyberChef. It provides a user interface for performing various data transformation operations such as encoding, decoding, hashing, and encryption. Users can create a sequence of operations called a "recipe" to apply multiple transformations sequentially.
+
+Key Features:
+- Flask backend with routes for main page, adding operations, applying recipes, and data analysis.
+- Operations implemented as classes supporting encoding (Base64, Base32, Hex, URL, Caesar cipher, ROT13, ROT47), hashing (MD5, SHA256), and their verification.
+- Session-based recipe management allowing users to build and modify operation sequences.
+- Data analysis page for encryption strength analysis of selected operation recipes.
+- Visualization of analysis results using matplotlib-generated charts embedded as base64 images.
+- MySQL database integration for user and recipe data management (schema provided).
+- Utility modules for data analysis and file handling.
+- User authentication with registration, login, and logout.
+- Persistent recipe storage with save and view history features.
+- Responsive and user-friendly web interface with clear layout and controls.
+
+Recent Updates:
+- Added encryption strength analysis feature accessible via /data-analysis route.
+- Refactored /data-analysis page to match the main index.html layout with recipe management.
+- Implemented heuristic strength scoring for selected operations with qualitative assessment.
+- Added pie chart visualization of strength score.
+- Improved error handling and UI feedback on the data analysis page.
+- Added user authentication and session management.
+- Added persistent recipe saving and history viewing.
+- Enhanced UI layout and styling for better user experience.
+
+Testing:
+- Basic manual testing of operation addition, recipe application, data analysis, and user authentication.
+- Further thorough testing recommended for all UI flows, backend endpoints, and edge cases.
+
+This explanation provides an overview of the project structure, features, and recent enhancements for encryption strength analysis and user management.

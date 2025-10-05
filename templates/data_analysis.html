@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Encryption Strength Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <style>
+        #operations-panel, #recipe-panel, #stats-panel, #visualization-panel {
+            float: left;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            height: 400px;
+            overflow-y: auto;
+        }
+        #operations-panel {
+            width: 25%;
+        }
+        #recipe-panel {
+            width: 25%;
+        }
+        #stats-panel {
+            width: 25%;
+        }
+        #visualization-panel {
+            width: 20%;
+        }
+        #analyze-button-panel {
+            clear: both;
+            padding: 20px;
+            text-align: center;
+        }
+        #error-message {
+            color: red;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #f44336;
+            margin-bottom: 20px;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Encryption Strength Analysis</h1>
+            <a href="{{ url_for('index') }}">Back to Home</a>
+        </header>
+        {% if error %}
+        <div id="error-message">{{ error }}</div>
+        {% endif %}
+        <main>
+            <section id="operations-panel">
+                <h2>Operations</h2>
+                <form method="post" action="{{ url_for('data_analysis') }}" id="add-operation-form">
+                    <select name="operation" size="15" required id="operations-select">
+                        {% for op in operations %}
+                        <option value="{{ op }}">{{ op }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" name="add_operation">Add to Recipe</button>
+                </form>
+            </section>
+            <section id="recipe-panel">
+                <h2>Recipe</h2>
+                <form method="post" action="{{ url_for('apply_recipe') }}" id="recipe-form">
+                    {% if recipe %}
+                    <ul id="recipe-list">
+                        {% for op in recipe %}
+                        <li>
+                            {{ op }}
+                            <button type="submit" name="remove_op" value="{{ op }}">Remove</button>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <p>No operations in recipe.</p>
+                    {% endif %}
+                </form>
+            </section>
+            <section id="stats-panel">
+                <h2>Stats</h2>
+                {% if stats %}
+                <ul>
+                    {% for stat in stats %}
+                    <li>{{ stat }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No stats available.</p>
+                {% endif %}
+            </section>
+            <section id="visualization-panel">
+                <h2>Visualizations</h2>
+                {% if pie_chart %}
+                <img src="data:image/png;base64,{{ pie_chart }}" alt="Strength Pie Chart" />
+                {% else %}
+                <p>No visualization available.</p>
+                {% endif %}
+            </section>
+            <section id="analyze-button-panel">
+                <form method="post" action="{{ url_for('data_analysis') }}">
+                    <button type="submit" name="analyze">Analyze</button>
+                </form>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

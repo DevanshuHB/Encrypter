@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Encrypter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script>
+        // Simple search filter for operations list without external JS
+        function filterOperations() {
+            var input, filter, select, options, i;
+            input = document.getElementById('search-operations');
+            filter = input.value.toUpperCase();
+            select = document.getElementById('operations-select');
+            options = select.options;
+            for (i = 0; i < options.length; i++) {
+                txtValue = options[i].text;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    options[i].style.display = "";
+                } else {
+                    options[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="container">
+        <header>
+            <h1>Encrypter</h1>
+            <div style="float: right;">
+                {% if session.username %}
+                    Welcome, {{ session.username }}! <a href="{{ url_for('logout') }}">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}">Login</a> | <a href="{{ url_for('register') }}">Register</a>
+                {% endif %}
+            </div>
+        </header>
+        {% if error %}
+        <div id="error-message">{{ error }}</div>
+        {% endif %}
+        <main>
+            <section id="operations-panel">
+                <h2>Operations</h2>
+                <input type="text" id="search-operations" placeholder="Search operations..." onkeyup="filterOperations()" />
+                <form method="post" action="/add-operation" id="add-operation-form">
+                    <select name="operation" size="15" required id="operations-select">
+                        <option value="base64_encode">Base64 Encode</option>
+                        <option value="base64_decode">Base64 Decode</option>
+                        <option value="md5_hash">MD5 Hash</option>
+                        <option value="md5_verify">MD5 Verify</option>
+                        <option value="sha256_hash">SHA256 Hash</option>
+                        <option value="sha256_verify">SHA256 Verify</option>
+                        <option value="rot13_encode">ROT13 Encode</option>
+                        <option value="rot13_decode">ROT13 Decode</option>
+                        <option value="rot47_encode">ROT47 Encode</option>
+                        <option value="rot47_decode">ROT47 Decode</option>
+                        <option value="url_encode">URL Encode</option>
+                        <option value="url_decode">URL Decode</option>
+                        <option value="hex_encode">Hex Encode</option>
+                        <option value="hex_decode">Hex Decode</option>
+                    </select>
+                    <button type="submit">Add to Recipe</button>
+                </form>
+            </section>
+            <section id="recipe-panel">
+                <h2>Recipe</h2>
+                <form method="post" action="/apply-recipe" id="recipe-form">
+                {% if recipe %}
+                    <ul id="recipe-list">
+                    {% for op in recipe %}
+                        <li>
+                            {{ op }}
+                            <button type="submit" name="remove_op" value="{{ op }}">Remove</button>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No operations in recipe.</p>
+                {% endif %}
+                </form>
+                {% if session.user_id %}
+                <form method="post" action="/save-recipe" id="save-recipe-form">
+                    <input type="text" name="name" placeholder="Recipe name" required />
+                    <input type="hidden" name="input_data" value="{{ input_data or '' }}" />
+                    <input type="hidden" name="output_data" value="{{ result or '' }}" />
+                    <button type="submit">Save Recipe</button>
+                </form>
+                <a href="{{ url_for('history') }}">View Saved Recipes</a>
+                {% endif %}
+            </section>
+            <section id="input-output-panel">
+                <h2>Input</h2>
+                <form method="post" action="/apply-recipe" enctype="multipart/form-data" id="input-form">
+                    <textarea name="input_text" placeholder="Enter text or paste here">{{ input_data or '' }}</textarea>
+                    <input type="file" name="input_file" />
+                    <button type="submit" name="execute" value="true">Bake!</button>
+                </form>
+                <h2>Output</h2>
+                <textarea readonly id="output-text" placeholder="Output will appear here">{{ result or '' }}</textarea>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
