@@ -39,7 +39,13 @@ Encrypter is a Python-based web application inspired by CyberChef. It allows use
 
 ## Screenshots
 
-*(Add screenshots here showing the main page, data analysis page, login/register forms, and history page.)*
+<img width="1440" height="858" alt="Screenshot 2025-10-05 at 21 49 31" src="https://github.com/user-attachments/assets/a8b42d14-a7a8-461d-a414-374d1ca4933c" />
+
+<img width="1440" height="697" alt="Screenshot 2025-10-05 at 21 51 55" src="https://github.com/user-attachments/assets/4d3c6168-cc26-4773-8e66-746652c1269b" />
+
+<img width="1440" height="281" alt="Screenshot 2025-10-05 at 21 53 50" src="https://github.com/user-attachments/assets/6ee1e4bb-4d09-42d6-9941-5eb25c3bb67d" />
+
+<img width="1440" height="647" alt="Screenshot 2025-10-05 at 21 53 11" src="https://github.com/user-attachments/assets/b87aa575-7f28-4008-8423-43a3afd81fc3" />
 
 ## Testing
 
