@@ -1,4 +1,4 @@
-# Encrypter - CyberChef Clone
+# Encrypter
 
 ## Overview
 
